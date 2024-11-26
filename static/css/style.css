@@ -34,6 +34,18 @@ h1 {
     padding: 20px;
     max-width: 48%;
 }
+
+/* Adjust for mobile devices */
+@media (max-width: 768px) {
+    .chart-container {
+        grid-template-columns: 1fr; /* Switch to a single column */
+        max-width: 80%; /* Set container width to 80% */
+        margin: 0 auto; /* Center the container */
+    }
+    .stat{
+        width: 20%;
+    }
+}
 canvas {
     background: white;
     border-radius: 10px;
