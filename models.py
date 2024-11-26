@@ -65,20 +65,4 @@ def get_message_count_today():
             return 0
         finally:
             conn.close()
-# def get_message_count_yesterday():
-#     """Get the total number of messages sent yesterday."""
-#     conn = get_db_connection()
-#     if conn:
-#         try:
-#             cursor = conn.cursor()
-#             # Calculate yesterday's date
-#             yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
-#             cursor.execute('SELECT COUNT(*) FROM messages WHERE message_date = ?', (yesterday,))
-#             count = cursor.fetchone()[0]
-#             return count
-#         except Exception as e:
-#             logging.error(f"Failed to get yesterday's message count: {e}")
-#             return 0
-#         finally:
-#             conn.close()
 
