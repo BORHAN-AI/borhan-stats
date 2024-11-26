@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Bot Stats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Real-Time Bot Statistics</h1>
+    <div class="stats">
+        <div class="stat">
+            <h2 id="userCount">0</h2>
+            <p>Users</p>
+        </div>
+        <div class="stat">
+            <h2 id="groupCount">0</h2>
+            <p>Groups</p>
+        </div>
+        <div class="stat">
+            <h2 id="messageCount">0</h2>
+            <p>Messages Today</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
