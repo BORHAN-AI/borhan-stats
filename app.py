@@ -1,5 +1,14 @@
 from flask import Flask, render_template, jsonify
-from models import get_user_count, get_group_count, get_message_count_today
+from models import (get_user_count,
+                    get_group_count, 
+                    get_message_count_today,
+                    get_total_users_by_date,
+                    get_daily_new_users,
+                    get_total_groups_by_date,
+                    get_daily_new_groups,
+                    get_total_messages_by_date,
+                    get_daily_new_messages
+                    )
 
 app = Flask(__name__)
 
@@ -23,6 +32,30 @@ def get_stats():
         })
     except Exception as e:
         return jsonify({'error': str(e)})
+
+@app.route('/api/total_users_by_date', methods=['GET'])
+def total_users_by_date():
+    return jsonify(get_total_users_by_date())
+
+@app.route('/api/daily_new_users', methods=['GET'])
+def daily_new_users():
+    return jsonify(get_daily_new_users())
+
+@app.route('/api/total_groups_by_date', methods=['GET'])
+def total_groups_by_date():
+    return jsonify(get_total_groups_by_date())
+
+@app.route('/api/daily_new_groups', methods=['GET'])
+def daily_new_groups():
+    return jsonify(get_daily_new_groups())
+
+@app.route('/api/total_messages_by_date', methods=['GET'])
+def total_messages_by_date():
+    return jsonify(get_total_messages_by_date())
+
+@app.route('/api/daily_new_messages', methods=['GET'])
+def daily_new_messages():
+    return jsonify(get_daily_new_messages())
 
 if __name__ == '__main__':
     app.run(debug=True)

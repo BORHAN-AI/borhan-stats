@@ -5,23 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real-Time Bot Stats</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h1>Real-Time Bot Statistics</h1>
+
+    <!-- Statistics Section -->
     <div class="stats">
         <div class="stat">
             <h2 id="userCount">0</h2>
-            <p>Users</p>
+            <p>Total Users</p>
         </div>
         <div class="stat">
             <h2 id="groupCount">0</h2>
-            <p>Groups</p>
+            <p>Total Groups</p>
         </div>
         <div class="stat">
             <h2 id="messageCount">0</h2>
             <p>Messages Today</p>
         </div>
     </div>
+
+    <!-- Charts Section -->
+    <div class="chart-container">
+        <canvas id="totalUsersByDateChart"></canvas>
+        <canvas id="dailyNewUsersChart"></canvas>
+        <canvas id="totalGroupsByDateChart"></canvas>
+        <canvas id="dailyNewGroupsChart"></canvas>
+        <canvas id="totalMessagesByDateChart"></canvas>
+        <canvas id="dailyNewMessagesChart"></canvas>
+    </div>
+
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
