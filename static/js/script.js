@@ -50,6 +50,48 @@ async function createChart(apiEndpoint, chartId, label, xLabel, yLabel) {
     });
 }
 
+async function createGrowthChart(apiEndpoint, chartId, label, xLabel, yLabel) {
+    try {
+        const response = await fetch(apiEndpoint);
+        const data = await response.json();
+
+        console.log(`Data for ${chartId}:`, data); // Debugging log
+
+        const labels = data.map(item => item.date);
+        const values = data.map(item => item.growth); // Adjust for growth
+
+        new Chart(document.getElementById(chartId), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: values,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true },
+                    tooltip: { enabled: true }
+                },
+                scales: {
+                    x: { title: { display: true, text: xLabel } },
+                    y: {
+                        title: { display: true, text: yLabel },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error(`Failed to create chart (${chartId}):`, error);
+    }
+}
+
 // Create all charts
 createChart('/api/total_users_by_date', 'totalUsersByDateChart', 'Total Users by Date', 'Date', 'Users');
 createChart('/api/daily_new_users', 'dailyNewUsersChart', 'Daily New Users', 'Date', 'Users');
@@ -57,3 +99,7 @@ createChart('/api/total_groups_by_date', 'totalGroupsByDateChart', 'Total Groups
 createChart('/api/daily_new_groups', 'dailyNewGroupsChart', 'Daily New Groups', 'Date', 'Groups');
 createChart('/api/total_messages_by_date', 'totalMessagesByDateChart', 'Total Messages by Date', 'Date', 'Messages');
 createChart('/api/daily_new_messages', 'dailyNewMessagesChart', 'Daily New Messages', 'Date', 'Messages');
+
+createGrowthChart('/api/weekly_user_growth', 'weeklyUserGrowthChart', 'Weekly User Growth (%)', 'Date', 'Growth (%)');
+createGrowthChart('/api/weekly_group_growth', 'weeklyGroupGrowthChart', 'Weekly Group Growth (%)', 'Date', 'Growth (%)');
+createGrowthChart('/api/weekly_message_growth', 'weeklyMessageGrowthChart', 'Weekly Message Growth (%)', 'Date', 'Growth (%)');

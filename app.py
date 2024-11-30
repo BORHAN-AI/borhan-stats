@@ -7,7 +7,8 @@ from models import (get_user_count,
                     get_total_groups_by_date,
                     get_daily_new_groups,
                     get_total_messages_by_date,
-                    get_daily_new_messages
+                    get_daily_new_messages,
+                    calculate_weekly_growth
                     )
 
 app = Flask(__name__)
@@ -56,6 +57,21 @@ def total_messages_by_date():
 @app.route('/api/daily_new_messages', methods=['GET'])
 def daily_new_messages():
     return jsonify(get_daily_new_messages())
+
+@app.route('/api/weekly_user_growth')
+def weekly_user_growth():
+    growth_data = calculate_weekly_growth('users', 'join_date')
+    return jsonify(growth_data)
+
+@app.route('/api/weekly_group_growth')
+def weekly_group_growth():
+    growth_data = calculate_weekly_growth('groups', 'join_date')
+    return jsonify(growth_data)
+
+@app.route('/api/weekly_message_growth')
+def weekly_message_growth():
+    growth_data = calculate_weekly_growth('messages', 'message_date')
+    return jsonify(growth_data)
 
 if __name__ == '__main__':
     app.run(debug=True)

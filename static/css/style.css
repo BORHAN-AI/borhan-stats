@@ -35,6 +35,22 @@ h1 {
     max-width: 48%;
 }
 
+/* Growth charts with 1x1 layout */
+.growth-chart-container {
+    display: grid;
+    gap: 20px;
+    margin: 20px auto;
+    max-width: 1200px;
+    grid-template-columns: 1fr; /* Single column layout */
+    grid-template-rows: repeat(3, auto); /* One row per chart */
+}
+
+/* Individual growth chart styling */
+.growth-chart {
+    margin: 0 auto;
+    width: 90%;
+}
+
 /* Adjust for mobile devices */
 @media (max-width: 768px) {
     .chart-container {

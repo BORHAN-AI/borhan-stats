@@ -186,3 +186,34 @@ def get_daily_new_messages():
             return []
         finally:
             conn.close()
+
+def calculate_weekly_growth(table_name, date_column):
+    """Calculate weekly growth percentage."""
+    conn = get_db_connection()
+    if conn:
+        try:
+            cursor = conn.cursor()
+            cursor.execute(f'''
+                SELECT DATE({date_column}) AS date, COUNT(*) AS count
+                FROM {table_name}
+                GROUP BY DATE({date_column})
+                ORDER BY DATE({date_column})
+            ''')
+            data = cursor.fetchall()
+
+            # logging.info(f"Raw data for {table_name}: {data}")
+
+            growth_data = []
+            for i in range(1, len(data)):
+                previous_count = sum(row[1] for row in data[:i])
+                current_count = sum(row[1] for row in data[:i+1])
+                growth_percentage = ((current_count - previous_count) / previous_count) * 100 if previous_count > 0 else 0
+                growth_data.append({'date': data[i][0], 'growth': growth_percentage})
+
+            # logging.info(f"Growth data for {table_name}: {growth_data}")
+            return growth_data
+        except Exception as e:
+            logging.error(f"Failed to calculate weekly growth for {table_name}: {e}")
+            return []
+        finally:
+            conn.close()
