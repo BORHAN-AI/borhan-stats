@@ -3,24 +3,41 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    padding-top: 75px;
     background-color: var(--background-color, #f9f9f9);
     color: var(--text-color, #333);
     box-sizing: border-box;
 }
 
 header {
+    position: fixed; /* Fixes the header at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures it stays above other content */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-color: var(--header-background, #007BFF);
-    color: var(--header-text-color, white);
-    position: relative;
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+    background-color: rgba(255, 255, 255, 0.1); /* Translucent background for light theme */
+    color: var(--header-text-color, rgb(0, 0, 0));
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+body.dark-theme header {
+    background-color: rgba(0, 0, 0, 0.4); /* Translucent background for dark theme */
+    color: var(--header-text-color, #007BFF);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* Adjust shadow for dark mode */
 }
 
 h1 {
     margin: 0;
     font-size: 24px;
+    color: inherit;
 }
 
 h2 {
