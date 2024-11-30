@@ -1,37 +1,48 @@
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     padding-top: 75px;
-    background-color: var(--background-color, #f9f9f9);
+    background-color: var(--background-color, #d9d9d9);
     color: var(--text-color, #333);
     box-sizing: border-box;
+    --shadow-light: rgba(255, 255, 255, 0.4);
+    --shadow-dark: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme {
+    --background-color: #1e1e1e;
+    --text-color: #ffffff;
+    --card-background: #333333;
+    --header-background: #111111;
+    --header-text-color: #007BFF;
+    --shadow-light: rgba(255, 255, 255, 0.05);
+    --shadow-dark: rgba(0, 0, 0, 0.4);
 }
 
 header {
-    position: fixed; /* Fixes the header at the top */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Ensures it stays above other content */
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    backdrop-filter: blur(10px); /* Glassmorphism effect */
-    -webkit-backdrop-filter: blur(10px); /* For Safari support */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
-    background-color: rgba(255, 255, 255, 0.1); /* Translucent background for light theme */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
     color: var(--header-text-color, rgb(0, 0, 0));
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    box-shadow: 0 4px 6px var(--shadow-dark);
 }
 
 body.dark-theme header {
-    background-color: rgba(0, 0, 0, 0.4); /* Translucent background for dark theme */
+    background-color: rgba(0, 0, 0, 0.4);
     color: var(--header-text-color, #007BFF);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* Adjust shadow for dark mode */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 6px var(--shadow-dark);
 }
 
 h1 {
@@ -45,116 +56,123 @@ h2 {
     margin-bottom: 20px;
     color: var(--text-color, #333);
 }
+
 section {
     margin: 20px auto;
     max-width: 1200px;
     padding: 0 20px;
 }
 
-/* Statistics Section */
 .stats {
     display: flex;
     justify-content: space-around;
-    padding: 20px;
-    background-color: var(--card-background, #e9ecef);
     margin-bottom: 40px;
     border-radius: 10px;
     gap: 20px;
+    box-shadow: 3px 3px 7px var(--shadow-dark), -3px -3px 7px var(--shadow-light);
+    padding: 20px;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
 }
+
 .stat {
     text-align: center;
-    background: var(--card-background, white);
     padding: 15px;
     width: 30%;
     border-radius: 10px;
-    box-shadow: 0 2px 5px var(--shadow-color, rgba(0, 0, 0, 0.1));
 }
 
-/* Growth Charts Section - 1 Column Layout */
+.stat, .chart-wrapper {
+    border-radius: 20px;
+    box-shadow: inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
+    padding: 20px;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+/* .stat:hover, .chart-wrapper:hover {
+    box-shadow: 3px 3px 7px var(--shadow-dark), -3px -3px 7px var(--shadow-light);
+    transform: translateY(-2px);
+} */
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
 .growth-chart-column {
     display: flex;
     flex-direction: column;
     gap: 20px;
     margin-bottom: 40px;
 }
+
 .growth-chart-column .chart-wrapper {
     max-width: 100%;
     margin: 0 auto;
 }
 
-/* Pie Charts Section - 3 Column Layout */
 .pie-chart-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    grid-template-columns: repeat(3, 1fr);
     gap: 40px;
     margin-bottom: 40px;
 }
+
 .pie-chart-grid .chart-wrapper {
     flex: 1 1 300px;
     max-width: 100%;
     margin: 0 auto;
 }
 
-/* Line Charts Section - 2 Column Layout */
 .chart-grid {
     display: grid;
     gap: 40px;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-columns: repeat(2, 1fr);
     margin-bottom: 40px;
 }
 
-/* Chart Styling */
-.chart-wrapper {
-    background: var(--card-background, white);
-    border-radius: 10px;
-    box-shadow: 0 2px 5px var(--shadow-color, rgba(0, 0, 0, 0.1));
-    padding: 10px;
-    width: 100%;
-}
-canvas {
-    width: 100% !important;
-    height: auto !important;
-}
-
-/* Responsive Adjustments */
 @media (max-width: 768px) {
     .stats {
         flex-direction: column;
         align-items: center;
     }
+
     .stat {
         width: 80%;
         margin-bottom: 20px;
     }
+
     .growth-chart-column, .pie-chart-grid, .chart-grid {
-        grid-template-columns: 1fr; /* Switch to a single-column layout */
-        justify-items: center; /* Center align items horizontally */
+        grid-template-columns: 1fr;
+        justify-items: center;
     }
+
     .chart-wrapper {
         width: 100%;
         max-width: 90% !important;
-        margin: 0 auto !important; /* Center align within parent container */
+        margin: 0 auto !important;
     }
 }
 
-/* Theme Switcher Styles */
 .theme-switcher {
     position: absolute;
-    left: 20px; /* Adjust spacing from the left corner */
+    left: 20px;
     display: flex;
     align-items: center;
 }
+
 .theme-switcher label {
     position: relative;
     display: inline-block;
     width: 50px;
     height: 24px;
 }
+
 .theme-switcher input {
     opacity: 0;
     width: 0;
     height: 0;
 }
+
 .slider {
     position: absolute;
     top: 0;
@@ -166,6 +184,7 @@ canvas {
     cursor: pointer;
     transition: 0.4s;
 }
+
 .slider:before {
     content: "";
     position: absolute;
@@ -177,24 +196,17 @@ canvas {
     left: 3px;
     transition: 0.4s;
 }
+
 input:checked + .slider {
     background-color: #007BFF;
 }
+
 input:checked + .slider:before {
     transform: translateX(26px);
 }
+
 #themeLabel {
     margin-left: 10px;
     font-size: 14px;
     color: var(--text-color, #333);
-}
-
-/* Dark Theme Variables */
-body.dark-theme {
-    --background-color: #1e1e1e;
-    --text-color: #ffffff;
-    --card-background: #333333;
-    --header-background: #111111;
-    --header-text-color: #007BFF;
-    --shadow-color: rgba(255, 255, 255, 0.1);
 }
