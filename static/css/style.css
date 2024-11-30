@@ -3,21 +3,30 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: var(--background-color, #f9f9f9);
+    color: var(--text-color, #333);
     box-sizing: border-box;
 }
+
 header {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
-    background-color: #007BFF;
-    color: white;
-    margin-bottom: 20px;
+    background-color: var(--header-background, #007BFF);
+    color: var(--header-text-color, white);
+    position: relative;
 }
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
 h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: var(--text-color, #333);
 }
 section {
     margin: 20px auto;
@@ -30,18 +39,18 @@ section {
     display: flex;
     justify-content: space-around;
     padding: 20px;
-    background-color: #e9ecef;
+    background-color: var(--card-background, #e9ecef);
     margin-bottom: 40px;
     border-radius: 10px;
     gap: 20px;
 }
 .stat {
     text-align: center;
-    background: white;
+    background: var(--card-background, white);
     padding: 15px;
     width: 30%;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px var(--shadow-color, rgba(0, 0, 0, 0.1));
 }
 
 /* Growth Charts Section - 1 Column Layout */
@@ -79,9 +88,9 @@ section {
 
 /* Chart Styling */
 .chart-wrapper {
-    background: white;
+    background: var(--card-background, white);
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px var(--shadow-color, rgba(0, 0, 0, 0.1));
     padding: 10px;
     width: 100%;
 }
@@ -109,4 +118,66 @@ canvas {
         max-width: 90% !important;
         margin: 0 auto !important; /* Center align within parent container */
     }
+}
+
+/* Theme Switcher Styles */
+.theme-switcher {
+    position: absolute;
+    left: 20px; /* Adjust spacing from the left corner */
+    display: flex;
+    align-items: center;
+}
+.theme-switcher label {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+.theme-switcher input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    background-color: white;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: 0.4s;
+}
+input:checked + .slider {
+    background-color: #007BFF;
+}
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+#themeLabel {
+    margin-left: 10px;
+    font-size: 14px;
+    color: var(--text-color, #333);
+}
+
+/* Dark Theme Variables */
+body.dark-theme {
+    --background-color: #1e1e1e;
+    --text-color: #ffffff;
+    --card-background: #333333;
+    --header-background: #111111;
+    --header-text-color: #007BFF;
+    --shadow-color: rgba(255, 255, 255, 0.1);
 }

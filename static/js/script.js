@@ -16,6 +16,36 @@ fetchStats();
 
 // --------------------------------------------------------------------------------------------------------------------
 
+// Theme Switcher Functions:
+const themeToggle = document.getElementById('themeToggle');
+    const themeLabel = document.getElementById('themeLabel');
+    const body = document.body;
+
+    // Load theme from local storage on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-theme');
+            themeToggle.checked = true;
+            themeLabel.textContent = 'Dark Theme';
+        }
+    });
+
+    // Toggle theme
+    themeToggle.addEventListener('change', () => {
+        if (themeToggle.checked) {
+            body.classList.add('dark-theme');
+            themeLabel.textContent = 'Dark Theme';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            body.classList.remove('dark-theme');
+            themeLabel.textContent = 'Light Theme';
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+// --------------------------------------------------------------------------------------------------------------------
+
 // Function to fetch data from an API and plot it
 async function createChart(apiEndpoint, chartId, label, xLabel, yLabel) {
     const response = await fetch(apiEndpoint);
