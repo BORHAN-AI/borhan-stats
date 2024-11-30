@@ -88,10 +88,10 @@ section {
     transition: box-shadow 0.4s ease, transform 0.4s ease;
 }
 
-/* .stat:hover, .chart-wrapper:hover {
+.stat:hover{
     box-shadow: 3px 3px 7px var(--shadow-dark), -3px -3px 7px var(--shadow-light);
     transform: translateY(-2px);
-} */
+}
 
 canvas {
     width: 100% !important;
