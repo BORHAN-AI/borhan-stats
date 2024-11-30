@@ -8,46 +8,84 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Real-Time Bot Statistics</h1>
+    <header>
+        <h1>Real-Time Bot Statistics</h1>
+    </header>
 
     <!-- Statistics Section -->
-    <div class="stats">
-        <div class="stat">
-            <h2 id="userCount">0</h2>
-            <p>Total Users</p>
+    <section class="stats-section">
+        <div class="stats">
+            <div class="stat">
+                <h2 id="userCount">0</h2>
+                <p>Total Users</p>
+            </div>
+            <div class="stat">
+                <h2 id="groupCount">0</h2>
+                <p>Total Groups</p>
+            </div>
+            <div class="stat">
+                <h2 id="messageCount">0</h2>
+                <p>Messages Today</p>
+            </div>
         </div>
-        <div class="stat">
-            <h2 id="groupCount">0</h2>
-            <p>Total Groups</p>
-        </div>
-        <div class="stat">
-            <h2 id="messageCount">0</h2>
-            <p>Messages Today</p>
-        </div>
-    </div>
-
-    <!-- Charts Section -->
-    <div class="chart-container">
-        <canvas id="totalUsersByDateChart"></canvas>
-        <canvas id="dailyNewUsersChart"></canvas>
-        <canvas id="totalGroupsByDateChart"></canvas>
-        <canvas id="dailyNewGroupsChart"></canvas>
-        <canvas id="totalMessagesByDateChart"></canvas>
-        <canvas id="dailyNewMessagesChart"></canvas>
-    </div>
+    </section>
 
     <!-- Growth Charts Section -->
-    <div class="growth-chart-container">
-        <div class="growth-chart">
-            <canvas id="weeklyUserGrowthChart"></canvas>
+    <section class="growth-charts-section">
+        <h2>Growth Charts</h2>
+        <div class="growth-chart-column">
+            <div class="chart-wrapper">
+                <canvas id="weeklyUserGrowthChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="weeklyGroupGrowthChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="weeklyMessageGrowthChart"></canvas>
+            </div>
         </div>
-        <div class="growth-chart">
-            <canvas id="weeklyGroupGrowthChart"></canvas>
+    </section>
+
+    <!-- Pie Charts Section -->
+    <section class="pie-charts-section">
+        <h2>Pie Charts</h2>
+        <div class="pie-chart-grid">
+            <div class="chart-wrapper">
+                <canvas id="userCountByLanguageChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="messageCountByChatTypeChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="messageCountByLanguageChart"></canvas>
+            </div>
         </div>
-        <div class="growth-chart">
-            <canvas id="weeklyMessageGrowthChart"></canvas>
+    </section>
+
+    <!-- Line Charts Section -->
+    <section class="line-charts-section">
+        <h2>Line Charts</h2>
+        <div class="chart-grid">
+            <div class="chart-wrapper">
+                <canvas id="totalUsersByDateChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="dailyNewUsersChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="totalGroupsByDateChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="dailyNewGroupsChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="totalMessagesByDateChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="dailyNewMessagesChart"></canvas>
+            </div>
         </div>
-    </div>
+    </section>
     
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>

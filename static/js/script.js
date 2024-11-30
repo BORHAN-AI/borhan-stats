@@ -103,3 +103,61 @@ createChart('/api/daily_new_messages', 'dailyNewMessagesChart', 'Daily New Messa
 createGrowthChart('/api/weekly_user_growth', 'weeklyUserGrowthChart', 'Weekly User Growth (%)', 'Date', 'Growth (%)');
 createGrowthChart('/api/weekly_group_growth', 'weeklyGroupGrowthChart', 'Weekly Group Growth (%)', 'Date', 'Growth (%)');
 createGrowthChart('/api/weekly_message_growth', 'weeklyMessageGrowthChart', 'Weekly Message Growth (%)', 'Date', 'Growth (%)');
+
+
+// Pie Chart: User Count vs Language
+new Chart(document.getElementById('userCountByLanguageChart'), {
+    type: 'pie',
+    data: {
+        labels: ['fa', 'en', 'ar'],
+        datasets: [{
+            data: [59.9, 36.3, 3.8],
+            backgroundColor: ['#FFC107', '#007BFF', '#FF5722']
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: true },
+            title: { display: true, text: 'User Count vs Language' }
+        }
+    }
+});
+
+// Pie Chart: Message Count vs Chat Type
+new Chart(document.getElementById('messageCountByChatTypeChart'), {
+    type: 'pie',
+    data: {
+        labels: ['User', 'Group'],
+        datasets: [{
+            data: [65.6, 34.4],
+            backgroundColor: ['#FF5722', '#007BFF']
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: true },
+            title: { display: true, text: 'Message Count vs Chat Type' }
+        }
+    }
+});
+
+// Pie Chart: Message Count vs Language
+new Chart(document.getElementById('messageCountByLanguageChart'), {
+    type: 'pie',
+    data: {
+        labels: ['fa', 'en', 'ar'],
+        datasets: [{
+            data: [93.9, 3.9, 2.2],
+            backgroundColor: ['#FFC107', '#007BFF', '#FF5722']
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: true },
+            title: { display: true, text: 'Message Count vs Language' }
+        }
+    }
+});

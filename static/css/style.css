@@ -1,69 +1,112 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f9f9f9;
     color: #333;
+    box-sizing: border-box;
 }
-h1 {
+header {
     text-align: center;
     padding: 20px;
     background-color: #007BFF;
     color: white;
-    margin: 0;
+    margin-bottom: 20px;
 }
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+section {
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+/* Statistics Section */
 .stats {
     display: flex;
     justify-content: space-around;
     padding: 20px;
     background-color: #e9ecef;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    gap: 20px;
 }
 .stat {
     text-align: center;
     background: white;
     padding: 15px;
-    width: 25%;
+    width: 30%;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-.chart-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 20px;
-    max-width: 48%;
-}
 
-/* Growth charts with 1x1 layout */
-.growth-chart-container {
-    display: grid;
+/* Growth Charts Section - 1 Column Layout */
+.growth-chart-column {
+    display: flex;
+    flex-direction: column;
     gap: 20px;
-    margin: 20px auto;
-    max-width: 1200px;
-    grid-template-columns: 1fr; /* Single column layout */
-    grid-template-rows: repeat(3, auto); /* One row per chart */
+    margin-bottom: 40px;
 }
-
-/* Individual growth chart styling */
-.growth-chart {
+.growth-chart-column .chart-wrapper {
+    max-width: 100%;
     margin: 0 auto;
-    width: 90%;
 }
 
-/* Adjust for mobile devices */
-@media (max-width: 768px) {
-    .chart-container {
-        grid-template-columns: 1fr; /* Switch to a single column */
-        max-width: 80%; /* Set container width to 80% */
-        margin: 0 auto; /* Center the container */
-    }
-    .stat{
-        width: 20%;
-    }
+/* Pie Charts Section - 3 Column Layout */
+.pie-chart-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 40px;
+    margin-bottom: 40px;
 }
-canvas {
+.pie-chart-grid .chart-wrapper {
+    flex: 1 1 300px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Line Charts Section - 2 Column Layout */
+.chart-grid {
+    display: grid;
+    gap: 40px;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    margin-bottom: 40px;
+}
+
+/* Chart Styling */
+.chart-wrapper {
     background: white;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 100%;
+}
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .stats {
+        flex-direction: column;
+        align-items: center;
+    }
+    .stat {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+    .growth-chart-column, .pie-chart-grid, .chart-grid {
+        grid-template-columns: 1fr; /* Switch to a single-column layout */
+        justify-items: center; /* Center align items horizontally */
+    }
+    .chart-wrapper {
+        width: 100%;
+        max-width: 90% !important;
+        margin: 0 auto !important; /* Center align within parent container */
+    }
 }
