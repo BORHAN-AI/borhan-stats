@@ -37,34 +37,34 @@
         </div>
     </section>
 
-    <!-- Growth Charts Section -->
-    <section class="growth-charts-section">
-        <h2>Growth Charts</h2>
-        <div class="growth-chart-column">
-            <div class="chart-wrapper">
-                <canvas id="weeklyUserGrowthChart"></canvas>
+    <!-- Growth and Pie Charts Section -->
+    <section class="charts-section">
+        <h2>Growth and Pie Charts</h2>
+        <div class="charts-grid">
+            <!-- Growth Charts Column -->
+            <div class="growth-charts">
+                <div class="chart-wrapper">
+                    <canvas id="weeklyUserGrowthChart"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="weeklyGroupGrowthChart"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="weeklyMessageGrowthChart"></canvas>
+                </div>
             </div>
-            <div class="chart-wrapper">
-                <canvas id="weeklyGroupGrowthChart"></canvas>
-            </div>
-            <div class="chart-wrapper">
-                <canvas id="weeklyMessageGrowthChart"></canvas>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pie Charts Section -->
-    <section class="pie-charts-section">
-        <h2>Pie Charts</h2>
-        <div class="pie-chart-grid">
-            <div class="chart-wrapper">
-                <canvas id="userCountByLanguageChart"></canvas>
-            </div>
-            <div class="chart-wrapper">
-                <canvas id="messageCountByChatTypeChart"></canvas>
-            </div>
-            <div class="chart-wrapper">
-                <canvas id="messageCountByLanguageChart"></canvas>
+            
+            <!-- Pie Charts Column -->
+            <div class="pie-charts">
+                <div class="chart-wrapper">
+                    <canvas id="userCountByLanguageChart"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="messageCountByChatTypeChart"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="messageCountByLanguageChart"></canvas>
+                </div>
             </div>
         </div>
     </section>
@@ -72,23 +72,23 @@
     <!-- Line Charts Section -->
     <section class="line-charts-section">
         <h2>Line Charts</h2>
-        <div class="chart-grid">
-            <div class="chart-wrapper">
+        <div class="line-chart-grid">
+            <div class="line-chart-wrapper">
                 <canvas id="totalUsersByDateChart"></canvas>
             </div>
-            <div class="chart-wrapper">
+            <div class="line-chart-wrapper">
                 <canvas id="dailyNewUsersChart"></canvas>
             </div>
-            <div class="chart-wrapper">
+            <div class="line-chart-wrapper">
                 <canvas id="totalGroupsByDateChart"></canvas>
             </div>
-            <div class="chart-wrapper">
+            <div class="line-chart-wrapper">
                 <canvas id="dailyNewGroupsChart"></canvas>
             </div>
-            <div class="chart-wrapper">
+            <div class="line-chart-wrapper">
                 <canvas id="totalMessagesByDateChart"></canvas>
             </div>
-            <div class="chart-wrapper">
+            <div class="line-chart-wrapper">
                 <canvas id="dailyNewMessagesChart"></canvas>
             </div>
         </div>
