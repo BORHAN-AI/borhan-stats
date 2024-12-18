@@ -217,3 +217,49 @@ def calculate_weekly_growth(table_name, date_column):
             return []
         finally:
             conn.close()
+
+# Define a function to calculate weekly retention
+def calculate_weekly_user_retention():
+    conn = get_db_connection()
+    try:
+        c = conn.cursor()
+        
+        # Query to group users by their join week
+        c.execute('''
+            SELECT 
+                strftime('%Y-%W', join_date) AS join_week,
+                COUNT(*) AS cohort_size
+            FROM users
+            GROUP BY join_week
+        ''')
+        cohorts = c.fetchall()
+
+        retention_results = []
+
+        for join_week, cohort_size in cohorts:
+            # Calculate active users in subsequent weeks
+            c.execute('''
+                SELECT 
+                    strftime('%Y-%W', m.message_date) AS activity_week,
+                    COUNT(DISTINCT m.user_id) AS active_users
+                FROM messages m
+                JOIN users u ON m.user_id = u.user_id
+                WHERE strftime('%Y-%W', u.join_date) = ?
+                AND m.message_date > u.join_date
+                GROUP BY activity_week
+            ''', (join_week,))
+            activity = c.fetchall()
+
+            # Calculate retention percentage for each week
+            for activity_week, active_users in activity:
+                retention_rate = (active_users / cohort_size) * 100
+                retention_results.append({
+                    "join_week": join_week,
+                    "activity_week": activity_week,
+                    "retention_rate": retention_rate
+                })
+
+        return retention_results
+
+    finally:
+        conn.close()

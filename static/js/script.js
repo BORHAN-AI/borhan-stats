@@ -85,10 +85,17 @@ async function createGrowthChart(apiEndpoint, chartId, label, xLabel, yLabel) {
         const response = await fetch(apiEndpoint);
         const data = await response.json();
 
-        console.log(`Data for ${chartId}:`, data); // Debugging log
+        console.log(`Raw Data for ${chartId}:`, data); // Debugging log
 
-        const labels = data.map(item => item.date);
-        const values = data.map(item => item.growth); // Adjust for growth
+        // Filter data to only include one day of each week and after 2024-09-15
+        const startDate = new Date('2024-09-15');
+        const filteredData = data.filter((item) => {
+            const date = new Date(item.date);
+            return date >= startDate && date.getDay() === 0; // Start from 2024-09-15 and keep Sundays
+        });
+
+        const labels = filteredData.map(item => item.date);
+        const values = filteredData.map(item => item.growth);
 
         new Chart(document.getElementById(chartId), {
             type: 'line',
@@ -122,6 +129,65 @@ async function createGrowthChart(apiEndpoint, chartId, label, xLabel, yLabel) {
     }
 }
 
+async function createRetentionBarChart(apiEndpoint, chartId, label, xLabel, yLabel) {
+    try {
+        const response = await fetch(apiEndpoint);
+        const data = await response.json();
+
+        console.log(`Raw Data for Retention Bar Chart (${chartId}):`, data); // Debugging log
+
+        // Process data: Calculate average retention for each activity week
+        const retentionByWeek = {};
+        data.forEach(item => {
+            if (!retentionByWeek[item.activity_week]) {
+                retentionByWeek[item.activity_week] = { totalRetention: 0, count: 0 };
+            }
+            retentionByWeek[item.activity_week].totalRetention += item.retention_rate;
+            retentionByWeek[item.activity_week].count += 1;
+        });
+
+        // Compute averages and sort by activity week
+        const sortedWeeks = Object.keys(retentionByWeek).sort();
+        const labels = sortedWeeks;
+        const values = sortedWeeks.map(week => {
+            const { totalRetention, count } = retentionByWeek[week];
+            return totalRetention / count; // Average retention
+        });
+
+        // Create the bar chart
+        new Chart(document.getElementById(chartId), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: values,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }, // No need for multiple datasets legend
+                    tooltip: { enabled: true }
+                },
+                scales: {
+                    x: { title: { display: true, text: xLabel } },
+                    y: {
+                        title: { display: true, text: yLabel },
+                        beginAtZero: true,
+                        max: 20 // Retention rates are percentages
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error(`Failed to create retention bar chart (${chartId}):`, error);
+    }
+}
+
 // Create all charts
 createChart('/api/total_users_by_date', 'totalUsersByDateChart', 'Total Users by Date', 'Date', 'Users');
 createChart('/api/daily_new_users', 'dailyNewUsersChart', 'Daily New Users', 'Date', 'Users');
@@ -134,6 +200,14 @@ createGrowthChart('/api/weekly_user_growth', 'weeklyUserGrowthChart', 'Weekly Us
 createGrowthChart('/api/weekly_group_growth', 'weeklyGroupGrowthChart', 'Weekly Group Growth (%)', 'Date', 'Growth (%)');
 createGrowthChart('/api/weekly_message_growth', 'weeklyMessageGrowthChart', 'Weekly Message Growth (%)', 'Date', 'Growth (%)');
 
+// Create retention bar chart with total average retention
+createRetentionBarChart(
+    '/api/weekly_user_retention',
+    'weeklyTotalAverageRetentionChart',
+    'Total Average Retention (%) per Week',
+    'Activity Week',
+    'Retention (%)'
+);
 
 // Pie Chart: User Count vs Language
 new Chart(document.getElementById('userCountByLanguageChart'), {
